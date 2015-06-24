@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     2010-10-22 下午16:01:22                                                        
+
+     Rainbow    
+     Rainbow is a ORM implement of IDEAEE platform.
+                   
+     Chinakite Zhang                                                                
+     ====================================================================== -->
+<project name="IdeaWechat" default="default" basedir="./">
+    <description>
+        IdeaJDBC is a SQL Mapping framework.
+    </description>
+
+    <!-- set global properties for this build -->
+    <property name="src" location="src"/>
+    <property name="test-src" location="test"/>
+    <property name="bin" location="bin"/>
+    <property name="lib" location="lib"/>
+    <property name="dist" location="dist"/>
+    
+    <!-- set compile classpath -->
+    <path id="compile.classpath">
+        <fileset dir="${lib}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+    
+    <target name="init">
+        <mkdir dir="${bin}"/>
+        <mkdir dir="${dist}"/>
+    </target>
+    
+    <!-- ================================= 
+          target: default              
+         ================================= -->
+    <target name="default" depends="jar" description="IdeaWechat">
+    </target>
+    
+    <!-- - - - - - - - - - - - - - - - - - 
+          target: jar                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="jar">
+        <jar destfile="dist/ideawx-0.1.jar" > 
+            <fileset dir="./bin">
+                <exclude name="**/Test*.class"/>
+                <exclude name="**/*.properties"/>
+            </fileset>
+        </jar>
+    </target>
+
+    <target name="compile">
+        <javac srcdir="${src}" destdir="${bin}" encoding="UTF-8" classpathref="compile.classpath">
+            <compilerarg value="-Xlint:unchecked"/>
+        </javac>
+    </target>
+    
+    <target name="compile.test">
+        <javac srcdir="${test-src}" destdir="${bin}" encoding="UTF-8" classpathref="compile.classpath">
+        </javac>
+        <copy file="${test-src}/ideajdbc.properties" todir="${bin}"/>
+    </target>
+</project>
