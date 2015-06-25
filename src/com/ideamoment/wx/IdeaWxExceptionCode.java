@@ -74,4 +74,34 @@ public class IdeaWxExceptionCode {
      * 获取OauthAccessToken时发生异常
      */
     public static final String WX_OAUTH_ACCESSTOKEN_ERROR = "WX-20003";
+    
+    /**
+     * 微信支付平台证书没有找到
+     */
+    public static final String WX_PAY_CERT_NOT_FOUND = "WX-80001";
+    
+    /**
+     * 微信支付商户号没有找到
+     */
+    public static final String WX_PAY_MCHID_NOT_FOUND = "WX-80002";
+    
+    /**
+     * 微信支付证书初始化错误
+     */
+    public static final String WX_PAY_CERT_INIT_ERROR = "WX-80003";
+    
+    /**
+     * 微信支付证书验证错误
+     */
+    public static final String WX_PAY_CERT_VALIDATE_ERROR = "WX-80004";
+    
+    /**
+     * 微信支付平台密钥没有找到
+     */
+    public static final String WX_PAY_KEY_NOT_FOUND = "WX-80005";
+    
+    /**
+     * 微信红包支付结果解析错误
+     */
+    public static final String WX_PAY_PARSE_RESULT_ERROR = "WX-80006";
 }

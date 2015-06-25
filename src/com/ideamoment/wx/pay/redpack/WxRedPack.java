@@ -3,6 +3,13 @@
  */
 package com.ideamoment.wx.pay.redpack;
 
+import java.util.Arrays;
+import java.util.HashMap;
+
+import com.ideamoment.wx.IdeaWxException;
+import com.ideamoment.wx.IdeaWxExceptionCode;
+import com.ideamoment.wx.config.IdeaWxConfig;
+import com.ideamoment.wx.util.EncryptUtils;
 import com.ideamoment.wx.util.StringUtils;
 
 
@@ -468,6 +475,93 @@ public class WxRedPack {
         this.shareImgUrl = shareImgUrl;
     }
     
+    /**
+     * 签名
+     * @return
+     */
+    public String signature() {
+        HashMap<String, String> attrs = new HashMap<String, String>();
+        if(StringUtils.isNotEmpty(nonceStr)) {
+            attrs.put("nonce_str", this.nonceStr);
+        }
+        if(StringUtils.isNotEmpty(mchBillNo)) {
+            attrs.put("mch_billno", this.mchBillNo);
+        }
+        if(StringUtils.isNotEmpty(mchId)) {
+            attrs.put("mch_id", this.mchId);
+        }
+        if(StringUtils.isNotEmpty(appId)) {
+            attrs.put("wxappid", this.appId);
+        }
+        if(StringUtils.isNotEmpty(nickName)) {
+            attrs.put("nick_name", this.nickName);
+        }
+        if(StringUtils.isNotEmpty(sendName)) {
+            attrs.put("send_name", this.sendName);
+        }
+        if(StringUtils.isNotEmpty(openId)) {
+            attrs.put("re_openid", this.openId);
+        }
+        if(StringUtils.isNotEmpty(String.valueOf(totalAmount))) {
+            attrs.put("total_amount", String.valueOf(totalAmount));
+        }
+        if(StringUtils.isNotEmpty(String.valueOf(minValue))) {
+            attrs.put("min_value", String.valueOf(minValue));
+        }
+        if(StringUtils.isNotEmpty(String.valueOf(maxValue))) {
+            attrs.put("max_value", String.valueOf(maxValue));
+        }
+        if(StringUtils.isNotEmpty(String.valueOf(totalNum))) {
+            attrs.put("total_num", String.valueOf(totalNum));
+        }
+        if(StringUtils.isNotEmpty(wishing)) {
+            attrs.put("wishing", this.wishing);
+        }
+        if(StringUtils.isNotEmpty(clientIp)) {
+            attrs.put("client_ip", this.clientIp);
+        }
+        if(StringUtils.isNotEmpty(actName)) {
+            attrs.put("act_name", this.actName);
+        }
+        if(StringUtils.isNotEmpty(remark)) {
+            attrs.put("remark", this.remark);
+        }
+        if(StringUtils.isNotEmpty(logoImgUrl)) {
+            attrs.put("logo_imgurl", this.logoImgUrl);
+        }
+        if(StringUtils.isNotEmpty(shareContent)) {
+            attrs.put("share_content", this.shareContent);
+        }
+        if(StringUtils.isNotEmpty(shareUrl)) {
+            attrs.put("share_url", this.shareUrl);
+        }
+        if(StringUtils.isNotEmpty(shareImgUrl)) {
+            attrs.put("share_imgurl", this.shareImgUrl);
+        }
+        if(StringUtils.isNotEmpty(subMchId)) {
+            attrs.put("sub_mch_id", this.subMchId);
+        }
+
+        Object[] paramsNames = attrs.keySet().toArray();
+        Arrays.sort(paramsNames);
+        
+        StringBuilder sortParamsSb = new StringBuilder();
+        for(int i=0;i<paramsNames.length;i++){
+            sortParamsSb.append(paramsNames[i]+"="+attrs.get(paramsNames[i])+"&");
+        }
+        String key = IdeaWxConfig.get("ideawx.pay.key", null);
+        if(StringUtils.isEmpty(key)) {
+            throw new IdeaWxException(IdeaWxExceptionCode.WX_PAY_KEY_NOT_FOUND, "Pay secret key is not found.");
+        }
+        sortParamsSb.append("key="+key);
+        
+        System.out.println(sortParamsSb.toString());
+        
+        String md5key = EncryptUtils.md5(sortParamsSb.toString());
+        this.sign = md5key.toUpperCase();
+        return sign;
+    }
+    
     public String getXmlStr() {
         StringBuffer sb = new StringBuffer();
         
@@ -482,20 +576,27 @@ public class WxRedPack {
         sb.append("<total_amount><![CDATA[" + this.totalAmount + "]]></total_amount>");
         sb.append("<min_value><![CDATA[" + this.minValue + "]]></min_value>");
         sb.append("<max_value><![CDATA[" + this.maxValue + "]]></max_value>");
-        sb.append("<total_num><![CDATA[" + this.totalNum + "]]></max_value>");
+        sb.append("<total_num><![CDATA[" + this.totalNum + "]]></total_num>");
         sb.append("<wishing><![CDATA[" + this.wishing + "]]></wishing>");
         sb.append("<client_ip><![CDATA[" + this.clientIp + "]]></client_ip>");
         sb.append("<act_name><![CDATA[" + this.actName + "]]></act_name>");
         sb.append("<remark><![CDATA[" + this.remark + "]]></remark>");
-        sb.append("<logo_imgurl><![CDATA[" + this.logoImgUrl + "]]></logo_imgurl>");
-        sb.append("<share_content><![CDATA[" + this.shareContent + "]]></share_content>");
-        sb.append("<share_url><![CDATA[" + this.shareUrl + "]]></share_url>");
+        if(StringUtils.isNotEmpty(this.shareContent)) {
+            sb.append("<share_content><![CDATA[" + this.shareContent + "]]></share_content>");
+        }
+        if(StringUtils.isNotEmpty(this.shareUrl)) {
+            sb.append("<share_url><![CDATA[" + this.shareUrl + "]]></share_url>");
+        }
+        if(StringUtils.isNotEmpty(this.logoImgUrl)) {
+            sb.append("<share_imgurl><![CDATA[" + this.logoImgUrl + "]]></share_imgurl>");
+        }
         if(StringUtils.isNotEmpty(this.shareImgUrl)) {
-            sb.append("<share_imgurl><![CDATA[" + this.shareImgUrl + "]]></share_imgurl>");
+            sb.append("<logo_imgurl><![CDATA[" + this.shareImgUrl + "]]></logo_imgurl>");
         }
         if(StringUtils.isNotEmpty(this.subMchId)) {
             sb.append("<sub_mch_id><![CDATA[" + this.subMchId + "]]></sub_mch_id>");
         }
+        sb.append("<sign><![CDATA[" + this.sign + "]]></sign>");
         sb.append("</xml>");
         return sb.toString();
     }
