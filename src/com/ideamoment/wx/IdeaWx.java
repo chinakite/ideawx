@@ -10,6 +10,9 @@ import com.ideamoment.wx.accesstoken.AccessTokenService;
 import com.ideamoment.wx.customerservice.CustomerServicerService;
 import com.ideamoment.wx.customerservice.model.WxCustomerServicer;
 import com.ideamoment.wx.jsapi.JsapiService;
+import com.ideamoment.wx.pay.redpack.WxRedPack;
+import com.ideamoment.wx.pay.redpack.WxRedPackResult;
+import com.ideamoment.wx.pay.redpack.WxRedPackService;
 import com.ideamoment.wx.sender.CustomerServiceMessageService;
 import com.ideamoment.wx.sender.model.WxSendArticleMessage;
 import com.ideamoment.wx.sender.model.WxSendImageMessage;
@@ -303,12 +306,27 @@ public class IdeaWx {
         return OAuthService.getOAuthUserInfo(oAuthAccessToken, openId, refreshToken, appId);
     }
     
+    /**
+     * 获取JSSDK的Ticket.
+     * 
+     * @return
+     */
     public static String getJsapiTicket() {
         return JsapiService.getJsapiTicket();
     }
     
     public static String getJsapiTicket(String appId, String secret) {
         return JsapiService.getJsapiTicket(appId, secret);
+    }
+    
+    /**
+     * 发红包
+     * 
+     * @param redPack
+     * @return
+     */
+    public static WxRedPackResult sendRedPack(WxRedPack redPack) {
+        return WxRedPackService.sendRedPack(redPack);
     }
     
     /**
