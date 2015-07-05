@@ -61,6 +61,11 @@ public class IdeaWxExceptionCode {
     public static final String WX_BASE64_ERROR = "WX-00004";
     
     /**
+     * 配置文件重复初始化
+     */
+    public static final String WX_CONFIG_INIT_DUPLICATE = "WX-00005";
+    
+    /**
      * OAuthFilter初始化AccessableChecker时没有找到对应的类
      */
     public static final String WX_OAUTH_ACCESSABLE_CHECKER_CLASS_NOT_FOUND = "WX-20001";
