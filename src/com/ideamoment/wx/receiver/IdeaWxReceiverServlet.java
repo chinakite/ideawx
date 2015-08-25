@@ -124,7 +124,7 @@ public class IdeaWxReceiverServlet extends HttpServlet {
         // 通过检验signature对请求进行校验，若校验成功则原样返回echostr，表示接入成功，否则接入失败
         try {
             if (checkSignature(signature, timestamp, nonce, token)) {
-                out.print(echostr);
+                out.write(echostr);
             }
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -188,10 +188,11 @@ public class IdeaWxReceiverServlet extends HttpServlet {
             }
             
             System.out.println("Event receive end.");
-            
+            System.out.println(message.getXmlStr());
             // 响应消息 
             PrintWriter out = resp.getWriter(); 
-            out.print(message.getXmlStr()); 
+            out.write(message.getXmlStr()); 
+            out.flush();
             out.close();
             
         } catch (DocumentException e) {
