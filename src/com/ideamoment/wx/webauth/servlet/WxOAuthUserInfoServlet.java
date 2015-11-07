@@ -38,9 +38,13 @@ public class WxOAuthUserInfoServlet extends HttpServlet {
                          HttpServletResponse response) throws ServletException,
             IOException {
         String requestUri = request.getRequestURI();
-        String callback = requestUri.substring(requestUri.lastIndexOf("/"));
-
+        System.out.println("=====> requestUri = " + requestUri);
+        String callback = requestUri.substring(requestUri.lastIndexOf("/") + 1);
+        System.out.println("=====> callback = " + callback);
         String code = request.getParameter("code");
+        System.out.println("=====> parameter code = " + code);
+        //code = (String)request.getAttribute("code");
+        //System.out.println("=====> attribute code = " + code);
         HashMap<String, String> r = OAuthService.getOAuthAccessToken(code);
         String openId = r.get("openId");
         String accessToken = r.get("accessToken");
@@ -52,6 +56,7 @@ public class WxOAuthUserInfoServlet extends HttpServlet {
             
             eventListener.afterGetUserInfo(request, response, user);
             
+            System.out.println("decode : " + EncryptUtils.decodeBase64(callback));
             response.sendRedirect(EncryptUtils.decodeBase64(callback));
         }else{
             throw new IdeaWxException(IdeaWxExceptionCode.WX_OAUTH_ACCESSTOKEN_ERROR, "Error when got oauth accessToken");

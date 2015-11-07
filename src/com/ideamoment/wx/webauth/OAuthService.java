@@ -90,7 +90,7 @@ public class OAuthService {
             WxUser user = new WxUser();
             user.setOpenId((String)wxResult.getResult().get("openid"));
             user.setNickName((String)wxResult.getResult().get("nickname"));
-            user.setSex((String)wxResult.getResult().get("sex"));
+            user.setSex(wxResult.getResult().get("sex").toString());
             user.setProvince((String)wxResult.getResult().get("province"));
             user.setCity((String)wxResult.getResult().get("city"));
             user.setCountry((String)wxResult.getResult().get("country"));

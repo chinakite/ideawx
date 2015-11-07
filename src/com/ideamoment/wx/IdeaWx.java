@@ -22,7 +22,9 @@ import com.ideamoment.wx.sender.model.WxSendVideoMessage;
 import com.ideamoment.wx.sender.model.WxSendVoiceMessage;
 import com.ideamoment.wx.serverip.ServerIpService;
 import com.ideamoment.wx.shorturl.ShortUrlService;
+import com.ideamoment.wx.user.WxUserService;
 import com.ideamoment.wx.user.model.WxUser;
+import com.ideamoment.wx.user.model.WxUserList;
 import com.ideamoment.wx.webauth.OAuthService;
 
 /**
@@ -327,6 +329,46 @@ public class IdeaWx {
      */
     public static WxRedPackResult sendRedPack(WxRedPack redPack) {
         return WxRedPackService.sendRedPack(redPack);
+    }
+    
+    /**
+     * 获取用户列表，注意，微信获取到的用户列表只有OpenId，详情信息还需要一条条去取。
+     * 
+     * @param nextOpenId 第一个拉取的OPENID，不填默认从头开始拉取
+     * @return
+     */
+    public static WxUserList getUserList(String nextOpenId) {
+        return WxUserService.getUserList(nextOpenId);
+    }
+    
+    /**
+     * 获取用户列表，注意，微信获取到的用户列表只有OpenId，详情信息还需要一条条去取。
+     * 
+     * @param nextOpenId 第一个拉取的OPENID，不填默认从头开始拉取
+     * @return
+     */
+    public static WxUserList getUserList(String nextOpenId, String accessToken){
+        return WxUserService.getUserList(nextOpenId, accessToken);
+    }
+    
+    /**
+     * 根据OpenId获取用户信息
+     * 
+     * @param openId
+     * @return
+     */
+    public static WxUser getUser(String openId) {
+        return WxUserService.getUser(openId);
+    }
+    
+    /**
+     * 根据OpenId获取用户信息
+     * 
+     * @param openId
+     * @return
+     */
+    public static WxUser getUser(String openId, String accessToken) {
+        return WxUserService.getUser(openId, accessToken);
     }
     
     /**

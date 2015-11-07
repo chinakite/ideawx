@@ -12,6 +12,8 @@ import java.util.List;
  */
 public class WxUser {
     
+    private int subscribe;      //值为0时，代表此用户没有关注该公众号，拉取不到其余信息。
+    
     private String openId;
     
     private String nickName;
@@ -24,11 +26,19 @@ public class WxUser {
     
     private String country;
     
+    private String language;
+    
+    private long subscribeTime;
+    
     private String headImgUrl;
     
     private List<String> privilege;
     
     private String unionId;
+    
+    private String remark;
+    
+    private long groupId;
 
     
     /**
@@ -64,24 +74,6 @@ public class WxUser {
     public void setNickName(String nickName) {
     
         this.nickName = nickName;
-    }
-
-    
-    /**
-     * @return the sex
-     */
-    public String getSex() {
-    
-        return sex;
-    }
-
-    
-    /**
-     * @param sex the sex to set
-     */
-    public void setSex(String sex) {
-    
-        this.sex = sex;
     }
 
     
@@ -190,6 +182,119 @@ public class WxUser {
     public void setUnionId(String unionId) {
     
         this.unionId = unionId;
+    }
+
+
+    
+    /**
+     * @return the subscribe
+     */
+    public int getSubscribe() {
+    
+        return subscribe;
+    }
+
+
+    
+    /**
+     * @param subscribe the subscribe to set
+     */
+    public void setSubscribe(int subscribe) {
+    
+        this.subscribe = subscribe;
+    }
+
+
+    
+    /**
+     * @return the language
+     */
+    public String getLanguage() {
+    
+        return language;
+    }
+
+
+    
+    /**
+     * @param language the language to set
+     */
+    public void setLanguage(String language) {
+    
+        this.language = language;
+    }
+
+
+    
+    /**
+     * @return the subscribeTime
+     */
+    public long getSubscribeTime() {
+    
+        return subscribeTime;
+    }
+
+
+    
+    /**
+     * @param subscribeTime the subscribeTime to set
+     */
+    public void setSubscribeTime(long subscribeTime) {
+    
+        this.subscribeTime = subscribeTime;
+    }
+
+
+    
+    /**
+     * @return the remark
+     */
+    public String getRemark() {
+    
+        return remark;
+    }
+
+
+    
+    /**
+     * @param remark the remark to set
+     */
+    public void setRemark(String remark) {
+    
+        this.remark = remark;
+    }
+
+
+    
+    /**
+     * @return the groupId
+     */
+    public long getGroupId() {
+    
+        return groupId;
+    }
+
+
+    
+    /**
+     * @param groupId the groupId to set
+     */
+    public void setGroupId(long groupId) {
+    
+        this.groupId = groupId;
+    }
+
+
+    
+    /**
+     * @param sex the sex to set
+     */
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+    
+    public String getSex() {
+        return this.sex;
     }
     
     

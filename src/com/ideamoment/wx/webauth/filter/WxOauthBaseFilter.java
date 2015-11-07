@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.ideamoment.wx.IdeaWxException;
 import com.ideamoment.wx.IdeaWxExceptionCode;
@@ -72,23 +73,24 @@ public class WxOauthBaseFilter implements Filter {
             serverPathBuffer.append(request.getScheme())
                             .append("://")
                             .append(request.getServerName())
-                            .append(":")
-                            .append(request.getServerPort())
-                            .append("/")
-                            .append(contextPath);
+                            ;
             String serverPath = serverPathBuffer.toString();
+            
+            System.out.println("filter url = " + reqUrl);
             
             StringBuilder sb = new StringBuilder("https://open.weixin.qq.com/connect/oauth2/authorize?appid=");
             sb.append(appId)
               .append("&redirect_uri=")
               .append(serverPath)
-              .append("/weboauth/openid/" + EncryptUtils.base64(reqUrl));
+              .append(contextPath + "weboauth/openid/" + EncryptUtils.base64(serverPath + reqUrl));
             if(scope == OAuthScopeType.USERINFO) {
                 sb.append("&response_type=code&scope=snsapi_userinfo");
             }else{
                 sb.append("&response_type=code&scope=snsapi_base");
             }
             sb.append("&state=0#wechat_redirect");
+            
+            ((HttpServletResponse)resp).sendRedirect(sb.toString()); 
         }
     }
 

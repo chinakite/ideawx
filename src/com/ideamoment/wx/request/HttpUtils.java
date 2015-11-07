@@ -58,7 +58,7 @@ public class HttpUtils {
            }
        };
 
-    private static TrustManager wxPayX509TrustManager = new WxPayX509TrustManager();
+    private static TrustManager wxPayX509TrustManager;
        
     public static String httpsGet(String url) {
         return httpsGet(url, false);
@@ -71,6 +71,9 @@ public class HttpUtils {
             // 设置SSLContext
             SSLContext sslcontext = SSLContext.getInstance("TLS");
             if(useCert) {
+                if(wxPayX509TrustManager == null) {
+                    wxPayX509TrustManager = new WxPayX509TrustManager();
+                }
                 sslcontext.init(null, new TrustManager[] { wxPayX509TrustManager },
                                 null);
             }else{

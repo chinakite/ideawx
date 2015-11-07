@@ -52,4 +52,14 @@ public class TestEncryptUtils {
   
         return md5StrBuff.toString();  
     }
+    
+    @Test
+    public void testBase64() {
+        String inputStr = "/wxdemo/zpbhb/page1.html";
+        
+        String outStr = EncryptUtils.base64(inputStr);
+        System.out.println(EncryptUtils.base64(inputStr));
+        
+        System.out.println(EncryptUtils.decodeBase64(outStr));
+    }
 }

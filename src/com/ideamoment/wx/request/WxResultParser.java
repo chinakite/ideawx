@@ -13,7 +13,7 @@ public class WxResultParser {
     
     public static WxResult parse(String result) {
         WxResult wxResult = new WxResult();
-        System.out.println("HttpRequestUtil checkResult result === " + result);
+        //System.out.println("HttpRequestUtil checkResult result === " + result);
         JSONObject obj = JSONObject.parseObject(result);
         if(obj.get("errcode") == null || obj.getString("errcode").equals("0")) {
             wxResult.setSuccess(true);

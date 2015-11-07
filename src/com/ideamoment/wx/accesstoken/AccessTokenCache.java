@@ -66,7 +66,6 @@ public class AccessTokenCache {
         public void run() {
             while (true) {
                 try {
-                    System.out.println("Cache monitor");
                     TimeUnit.SECONDS.sleep(MONITOR_DURATION);
                     checkTimeout();
                 } catch (Exception e) {
