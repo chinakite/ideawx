@@ -24,6 +24,8 @@ import org.dom4j.io.SAXReader;
 import com.ideamoment.wx.IdeaWxException;
 import com.ideamoment.wx.IdeaWxExceptionCode;
 import com.ideamoment.wx.config.IdeaWxConfig;
+import com.ideamoment.wx.menu.event.model.WxMenuClickEvent;
+import com.ideamoment.wx.menu.event.model.WxMenuViewEvent;
 import com.ideamoment.wx.receiver.model.WxBaseReceivedMessage;
 import com.ideamoment.wx.receiver.model.WxEvent;
 import com.ideamoment.wx.receiver.model.WxImageMessage;
@@ -246,13 +248,13 @@ public class IdeaWxReceiverServlet extends HttpServlet {
                     String precisionText = precisionEle.getTextTrim();
                     ((WxLocationEvent)message).setPrecision(precisionText);
                 }else if("click".equals(eventType)) {
-                    message = new WxMenuEvent();
+                    message = new WxMenuClickEvent();
                     
                     Element eventKeyEle = root.element("EventKey");
                     String eventKeyText = eventKeyEle.getTextTrim();
                     ((WxMenuEvent)message).setEventKey(eventKeyText);
                 }else if("view".equals(eventType)) {
-                    message = new WxMenuEvent();
+                    message = new WxMenuViewEvent();
                     
                     Element eventKeyEle = root.element("EventKey");
                     String eventKeyText = eventKeyEle.getTextTrim();
