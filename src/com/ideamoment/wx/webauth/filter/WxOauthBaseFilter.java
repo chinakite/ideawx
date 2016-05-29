@@ -57,6 +57,9 @@ public class WxOauthBaseFilter implements Filter {
             String appId = IdeaWxConfig.get("ideawx.appid", null);
             String appSecret = IdeaWxConfig.get("ideawx.appsecret", null);
             
+            System.out.println("WxOauthBaseFilter doFilter appId = " + appId);
+            System.out.println("WxOauthBaseFilter doFilter secret = " + appSecret);
+            
             if(StringUtils.isEmpty(appId)) {
                 throw new IdeaWxException(IdeaWxExceptionCode.WX_APPID_NOT_FOUND, "AppID is not found.");
             }

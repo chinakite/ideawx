@@ -35,6 +35,7 @@ public class OAuthService {
     public static HashMap<String, String> getOAuthAccessToken(String code, String appId, String appSecret) {
         String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="+appId+"&secret="+appSecret+"&code="+code+"&grant_type=authorization_code";
         String result = HttpUtils.httpsGet(url);
+        System.out.println("OAuthService getOAuthAccessToken ====> " + result);
         WxResult wxResult = WxResultParser.parse(result);
         if(wxResult.isSuccess()) {
             HashMap<String, String> r = new HashMap<String, String>();

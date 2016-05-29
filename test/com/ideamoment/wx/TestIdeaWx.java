@@ -57,7 +57,7 @@ public class TestIdeaWx {
     @Test
     public void testGetShortUrl() {
 
-        String url = "http://mp.weixin.qq.com/s?__biz=MjM5OTIzODE3Mg==&mid=209656838&idx=1&sn=110d060c454f30a6fd4c67e88a081de7#rd";
+        String url = "http://mp.weixin.qq.com/s?__biz=MjM5OTIzODE3Mg==&mid=400477724&idx=1&sn=9c67b3040a47015b1ddcb6e980761e19#rd";
         System.out.println(IdeaWx.getShortUrl(url));
     }
 
